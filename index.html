@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Roll the ball</title>
+
+
+    <script src="skript.js" rel="script"></script>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+            crossorigin="anonymous">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"
+            integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
+            crossorigin="anonymous">
+    </script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"
+            integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ"
+            crossorigin="anonymous">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/4.5.1/pixi.min.js"></script>
+
+    <link rel="stylesheet" href="styly.css">
+    <link href="https://fonts.googleapis.com/css?family=Spectral+SC" rel="stylesheet">
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"
+          integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"
+          crossorigin="anonymous">
+    <link rel="apple-touch-icon" sizes="180x180" href="favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicons/favicon-16x16.png">
+    <link rel="manifest" href="favicons/manifest.json">
+    <link rel="mask-icon" href="favicons/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="theme-color" content="#ffffff">
+</head>
+<body>
+<main>
+    <header>
+        <h1>RollTheBall posledné zadanie</h1>
+    </header>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light" style="background-color: #e3f2fd;">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <input type="button" class="btn btn-primary my-2 my-sm-0" style="background-color: rgb(103,158,204)"
+                           id="info_button" value="Pravidlá hry" onclick="zobrazitNapovedu()">
+                </li>
+            </ul>
+        </div>
+        <span class="navbar-text" id="span_datum"></span>
+    </nav>
+    <div id="div_napoveda">
+        <div class="napoveda_ovladanie">
+            <input type="image" src="exit.png" width="20" height="20" alt="skryt napovedu" id="btn_napoveda"
+                   onclick="skrytNapovedu()">
+        </div>
+        <div>
+            Pohybujte bloky myšou alebo prstom, na vytvorenie cesty pre guličku do cieľového bloku.
+            Body sa získavajú podľa počtu vykonaných ťahov. Čím menej ťahov sa vykoná tým lepšie je skóre. Priskrutkované bloky sa nedajú pohybovať. Stlačením
+            tlačidiel nad hrou môžete level reštartovať alebo vrátiť späť vykonaný ťah. Po stlačení tlačidla diskety hru uložíte.
+        </div>
+    </div>
+
+    <div id="div_hry" class="container">
+        <div class="hra_ovladanie">
+            <input type="image" src="restart.png" width="50" height="50" alt="restartovat hru" id="btn_reset"
+                   onclick="hraReset()">
+            <input type="image" src="undo.png" width="50" height="50" alt="vratit tah" id="btn_undo"
+                   onclick="hraUndo()">
+            <input type="image" src="save.png" width="50" height="50" alt="ulozit hru" id="btn_save"
+                   onclick="hraSave()">
+        </div>
+    </div>
+
+    <div class="container">
+        <header>
+            <h2>Najlepšie skóre</h2>
+        </header>
+
+        Level 1:   <span id="skore1">10</span><br>
+        Level 2:   <span id="skore2"></span><br>
+        Level 3:   <span id="skore3"></span><br>
+        Level 4:   <span id="skore4"></span><br>
+        Level 5:   <span id="skore5"></span><br>
+        Level 6:   <span id="skore6"></span><br>
+        Level 7:   <span id="skore7"></span><br>
+        Level 8:   <span id="skore8"></span><br>
+        Level 9:   <span id="skore9"></span><br>
+        Level 10:  <span id="skore10"></span><br>
+    </div>
+</main>
+<footer class="footer">
+    <form>
+        <input placeholder="Nastavenie bodov" type="text" id="pocet_bodov">
+        <label for="vyber_levelu">Výber levelu: </label>
+        <select id="vyber_levelu">
+            <option>Level 1</option>
+            <option>Level 2</option>
+            <option>Level 3</option>
+            <option>Level 4</option>
+            <option>Level 5</option>
+            <option>Level 6</option>
+            <option>Level 7</option>
+            <option>Level 8</option>
+            <option>Level 9</option>
+            <option>Level 10</option>
+        </select>
+        <input type="button" value="Potvrdiť" onclick="setGameAndScore()">
+    </form>
+    <a href="kniznica.html">Ukážka knižnice</a>
+    <input type="button" value="Reset skóre" onclick="resetHighScore()">
+</footer>
+</body>
+</html>

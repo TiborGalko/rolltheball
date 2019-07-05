@@ -1,0 +1,71 @@
+html {
+    font-family: 'Spectral SC', serif;
+}
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+footer {
+    background-color: lightgrey;
+    width: 100%;
+    padding: 5px;
+}
+main {
+    flex: 1;
+    margin: 10px;
+}
+li {
+    margin: 10px;
+}
+nav span {
+    margin: 10px;
+}
+#div_hry {
+    display: inline-block;
+    margin-left: 20%;
+    margin-bottom: 20px;
+    top: 20%;
+    width: 100%;
+    padding: 10px;
+}
+div.hra_ovladanie {
+    margin: 5px;
+    opacity: 0.3;
+}
+#div_napoveda {
+    display: none;
+    background-color: #e3f2fd;
+    z-index: 9999;
+    padding: 10px;
+    border: 1px solid gray;
+    border-radius: 10px;
+    position: absolute;
+    left: 10%;
+    top: 20%;
+    width: 60%;
+}
+div.napoveda_ovladanie {
+    margin: 5px;
+    opacity: 0.3;
+}
+canvas {
+    border: 5px solid gray;
+    background-color: black;
+}
+div.lavy_stlpec {
+    background-color: rgba(189,204,192,0.53);
+}
+div.pravy_stlpec {
+    background-color: #eeeeee;
+}
+div.high_score {
+    background-color: #eeeeee;
+    border: 1px solid lightgrey;
+}
+div.lavy_stlpec header {
+    border-bottom: 1px solid black;
+}
+div.pravy_stlpec header {
+    border-bottom: 1px solid black;
+}
